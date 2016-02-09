@@ -168,7 +168,7 @@ You might have heard about this new thing called Docker containers. Developers l
   - [CoreOS and Rkt](#coreos-and-rkt)
   - [RancherOS](#rancheros)
   - [Kubernetes](#kubernetes)
-  - [Mesos](#mesos)
+  - [Mesos](#mesos#2)
   - [SmartOS and SmartDataCenter](#smartos-and-smartdatacenter)
   - [Sensu](#sensu)
   - [Prometheus](#prometheus)
