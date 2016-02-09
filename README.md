@@ -1,11 +1,12 @@
 # Top-Big-Data-Tech
-A copy of Bossie Awards 2015 list in a single page
+A copy of Bossie Awards 2015 list related to Big Data and networking in a single page
   - [The best open source big data tools] (#the-best-open-source-big-data-tools) - [Article] (http://www.infoworld.com/article/2982429/open-source-tools/bossie-awards-2015-the-best-open-source-big-data-tools.html)
-  - [The best open source data center and cloud software] (http://www.infoworld.com/article/2982923/open-source-tools/bossie-awards-2015-the-best-open-source-data-center-and-cloud-software.html)
-  - [The best open source big data tools] (http://www.infoworld.com/article/2982429/open-source-tools/bossie-awards-2015-the-best-open-source-big-data-tools.html)
+  - [The best open source data center and cloud software] (#the-best-open-source-data-center-and-cloud-software) - [Article] (http://www.infoworld.com/article/2982923/open-source-tools/bossie-awards-2015-the-best-open-source-data-center-and-cloud-software.html)
   - [The best open source networking and security software] (http://www.infoworld.com/article/2982962/open-source-tools/bossie-awards-2015-the-best-open-source-networking-and-security-software.html)
 
 ## The best open source big data tools
+
+How many Apache projects can sit on a pile of big data? Fire up your Hadoop cluster, and you might be able to count them. Among this year's Bossies in big data, you'll find the fastest, widest, and deepest newfangled solutions for large-scale SQL, stream processing, sort-of stream processing, and in-memory analytics, not to mention our favorite maturing members of the Hadoop ecosystem. It seems everyone has a nail to drive into MapReduce's coffin.
 
   - [Spark](#spark)
   - [Storm](#storm)
@@ -157,3 +158,38 @@ While still in incubation, [Apache Zeppelin](https://zeppelin.incubator.apache.o
 This technology also boasts an integration with Spark and an interpreter concept allowing any language or data processing back end to be plugged into Zeppelin. Currently Zeppelin supports interpreters such as Scala, Python, SparkSQL, Hive, Markdown, and Shell. 
 
 Zeppelin is still immature. I wanted to put a demo up but couldn’t find an easy way to disable “shell” as an execution option (among other things). However, it already looks better visually than IPython Notebook, which is the popular incumbent in this space. If you don’t want to spring for DataBricks Cloud or need something open source and extensible, this is the most promising distributed computing notebook around -- especially if you’re a Sparky type.
+
+
+## The best open source data center and cloud software
+
+You might have heard about this new thing called Docker containers. Developers love them because you can build them with a script, add services in layers, and push them right from your MacBook Pro to a server for testing. It works because they're superlightweight, unlike those now-archaic virtual machines. Containers -- and other lightweight approaches to deliver services -- are changing the shape of operating systems, applications, and the tools to manage them. Our Bossie winners in data center and cloud are leading the charge.
+
+  - [Docker Machine, Compose, and Swarm](#docker-machine-compose-and-swarm])
+  - [CoreOS and Rkt](#coreos-and-rkt)
+  - [RancherOS](#rancheros)
+ 
+#Docker Machine, Compose, and Swarm
+
+Docker’s open source container technology has been adopted by the major public clouds and is being built into the next version of Windows Server. Allowing developers and operations teams to separate applications from infrastructure, Docker is a powerful data center automation tool.
+
+However, containers are only part of the Docker story. Docker also provides a series of tools that allow you to use the Docker API to automate the entire container lifecycle, as well as handling application design and orchestration.
+
+[Machine](https://www.docker.com/products/docker-machine) allows you to automate the provisioning of Docker Containers. Starting with a command line, you can use a single line of code to target one or more hosts, deploy the Docker engine, and even join it to a Swarm cluster. There’s support for most hypervisors and cloud platforms – all you need are your access credentials.
+
+[Swarm](https://www.docker.com/products/docker-swarm) handles clustering and scheduling, and it can be integrated with Mesos for more advanced scheduling capabilities. You can use Swarm to build a pool of container hosts, allowing your apps to scale out as demand increases. Applications and all of their dependencies can be defined with [Compose](https://www.docker.com/products/docker-compose), which lets you link containers together into a distributed application and launch them as a group. Compose descriptions work across platforms, so you can take a developer configuration and quickly deploy in production.
+
+## CoreOS and Rkt
+
+A thin, lightweight server OS, [CoreOS](https://coreos.com/) is based on Google’s Chromium OS. Instead of using a package manager to install functions, it’s designed to be used with Linux containers. By using containers to extend a thin core, CoreOS allows you to quickly deploy applications, working well on cloud infrastructures.
+
+CoreOS’s container management tooling, fleet, is designed to treat a cluster of CoreOS servers as a single unit, with tools for managing high availability and for deploying containers to the cluster based on resource availability. A cross-cluster key/value store, etcd, handles device management and supports service discovery. If a node fails, etcd can quickly restore state on a new replica, giving you a distributed configuration management platform that’s linked to CoreOS’s automated update service.
+
+While CoreOS is perhaps best known for its Docker support, the CoreOS team is developing its own container runtime, rkt, with its own container format, the App Container Image. Also compatible with Docker containers, rkt has a modular architecture that allows different containerization systems (even hardware virtualization, in a proof of concept from Intel) to be plugged in. However, rkt is still in the early stages of development, so isn’t quite production ready.
+
+## RancherOS
+
+As we abstract more and more services away from the underlying operating system using containers, we can start thinking about what tomorrow’s operating system will look like. Similar to our applications, it’s going to be a modular set of services running on a thin kernel, self-configuring to offer only the services our applications need.
+
+[RancherOS](http://rancher.com/rancher-os/) is a glimpse of what that OS might look like. Blending the Linux kernel with Docker, RancherOS is a minimal OS suitable for hosting container-based applications in cloud infrastructures. Instead of using standard Linux packaging techniques, RancherOS leverages Docker to host Linux user-space services and applications in separate container layers. A low-level Docker instance is first to boot, hosting system services in their own containers. Users' applications run in a higher-level Docker instance, separate from the system containers. If one of your containers crashes, the host keeps running.
+
+RancherOS is only 20MB in size, so it's easy to replicate across a data center. It’s also designed to be managed using automation tools, not manually, with API-level access that works with Docker’s management tools as well as with Rancher Labs’ own cloud infrastructure and management tools.
