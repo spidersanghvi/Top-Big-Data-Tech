@@ -1,6 +1,6 @@
 # Top-Big-Data-Tech
 A copy of Bossie Awards 2015 list in a single page
-  - [The best open source big data tools] (#the-best-open-source-big-data-tools)  - [Article] (http://www.infoworld.com/article/2982429/open-source-tools/bossie-awards-2015-the-best-open-source-big-data-tools.html)
+  - [The best open source big data tools] (#the-best-open-source-big-data-tools) - [Article] (http://www.infoworld.com/article/2982429/open-source-tools/bossie-awards-2015-the-best-open-source-big-data-tools.html)
   - [The best open source data center and cloud software] (http://www.infoworld.com/article/2982923/open-source-tools/bossie-awards-2015-the-best-open-source-data-center-and-cloud-software.html)
   - [The best open source big data tools] (http://www.infoworld.com/article/2982429/open-source-tools/bossie-awards-2015-the-best-open-source-big-data-tools.html)
   - [The best open source networking and security software] (http://www.infoworld.com/article/2982962/open-source-tools/bossie-awards-2015-the-best-open-source-networking-and-security-software.html)
@@ -26,7 +26,7 @@ A copy of Bossie Awards 2015 list in a single page
   - [Kafka](#kafka)
   - [OpenTSDB](#opentsdb)
   - [Jupyter](#jupyter)
-  - [Zeppelin](#Zeppelin)
+  - [Zeppelin](#zeppelin)
 
 ## Spark
 
@@ -96,30 +96,64 @@ Recent improvements include the addition of high-availability region servers, su
 
 ## Hive
 
+Although stable and mature for several years, [Hive](https://hive.apache.org/) reached the 1.0 version milestone this year and continues to be the best solution when really heavy SQL lifting (many petabytes) is required. The community continues to focus on improving the speed, scale, and SQL compliance of Hive. Currently at version 1.2, significant improvements since its last Bossie include full ACID semantics, cross-data center replication, and a cost-based optimizer.
+
+Hive 1.2 also brought improved SQL compliance, making it easier for organizations to use it to off-load ETL jobs from their existing data warehouses. In the pipeline are speed improvements with an in-memory cache called LLAP (which, from the looks of the JIRAs, is about ready for release), the integration of Spark machine learning libraries, and improved SQL constructs like nonequi joins, interval types, and subqueries.
 
 ## Kylin
 
+[Kylin](http://kylin.apache.org/) is an application developed at eBay for processing very large OLAP cubes via ANSI SQL, a task familiar to most data analysts. If you think about how many items are on sale now and in the past at eBay, and all the ways eBay might want to slice and dice data related to those items, you will begin to understand the types of queries Kylin was designed for.
+
+Like most other analysis applications, Kylin supports multiple access methods, including JDBC, ODBC, and a REST API for programmatic access. Although Kylin is still in incubation at Apache, and the community nascent, the project is well documented and the developers are responsive and eager to understand customer use cases. Getting up and running with a starter cube was a snap. If you have a need for analysis of extremely large cubes, you should take a look at Kylin.
 
 ## CDAP
 
+[CDAP](http://cdap.io/) (Cask Data Access Platform) is a framework running on top of Hadoop that abstracts away the complexity of building and running big data applications. CDAP is organized around two core abstractions: data and applications. CDAP Datasets are logical representations of data that behave uniformly regardless of the underlying storage layer; CDAP Streams provide similar support for real-time data.
+
+Applications use CDAP services for things such as distributed transactions and service discovery to shield developers from the low-level details of Hadoop. CDAP comes with a data ingestion framework and a few prebuilt applications and “packs” for common tasks like ETL and website analytics, along with support for testing, debugging, and security. Like most formerly commercial (closed source) projects, CDAP benefits from good documentation, tutorials, and examples.
 
 ## Ranger
 
+Security has long been a sore spot with Hadoop. It isn’t (as is frequently reported) that Hadoop is “insecure” or “has no security.” Rather, the truth was more that Hadoop had too much security, though not in a good way. I mean that every component had its own authentication and authorization implementation that wasn’t integrated with the rest of platform.
+
+Hortonworks acquired XA/Secure in May, and a few renames later we have [Ranger](https://ranger.incubator.apache.org/). Ranger pulls many of the key components of Hadoop together under one security umbrella, allowing you to set a “policy” that ties your Hadoop security to your existing ACL-based Active Directory authentication and authorization. Ranger gives you one place to manage Hadoop access control, one place to audit, one place to manage the encryption, and a pretty Web page to do it from.
 
 ## Mesos
 
+[Mesos](http://mesos.apache.org/), developed at the [AMPLab](https://amplab.cs.berkeley.edu/) at U.C. Berkeley that also brought us Spark, takes a different approach to managing cluster computing resources. The best way to describe Mesos is as a distributed microkernel for the data center. Mesos provides a minimal set of operating system mechanisms like inter-process communications, disk access, and memory to higher-level applications, called “frameworks” in Mesos-speak, that run in what is analogous to user space. Popular frameworks for Mesos include [Chronos](http://nerds.airbnb.com/introducing-chronos/) and [Aurora](http://aurora.apache.org/) for building ETL pipelines and job scheduling, and a few big data processing applications including Hadoop, Storm, and Spark, which have been ported to run as Mesos frameworks.
+
+Mesos applications (frameworks) negotiate for cluster resources using a two-level scheduling mechanism, so writing a Mesos application is unlikely to feel like a familiar experience to most developers. Although Mesos is a young project, momentum is growing, and with Spark being an exceptionally good fit for Mesos, we're likely to see more from Mesos in the coming years.
 
 ## Nifi
 
+[NiFi](http://nifi.apache.org/) is an incubating Apache project to automate the flow of data between systems. It doesn't operate in the traditional space that Kafka and Storm do, but rather in the space between external devices and the data center. NiFi was originally developed by the NSA and donated to the open source community in 2014. It has a strong community of developers and users within various government agencies.
+
+NiFi isn't like anything else in the current big data ecosystem. It is much closer to a tradition EAI (enterprise application integration) tool than a data processing platform, although simple transformations are possible. One interesting feature is the ability to debug and change data flows in real time. Although not quite a REPL (read, eval, print loop), this kind of paradigm dramatically shortens the development cycle by not requiring a compile-deploy-test-debug workflow. Other interesting features include a strong “chain of custody,” where each piece of data can be tracked from beginning to end, along with any changes made along the way. You can also prioritize data flows so that time-sensitive information can be received as quickly as possible, bypassing less time-critical events.
 
 ## Kafka
 
+[Kafka](https://kafka.apache.org/) has emerged as the de-facto standard for distributed publish-subscribe messaging in the big data space. Its design allows brokers to support thousands of clients at high rates of sustained message throughput, while maintaining durability through a distributed commit log.
+
+High throughput comes from Kafka's intelligent partitioning of incoming data streams, which enables parallel reads and writes. These partitioned data streams are then copied to a configurable number of replicas, which in turn are written to disk, preventing data loss and enabling an ability to "replay" the history of the data stream.
+
+When consumers want to read messages, Kafka looks up their offset in the central log and sends them. Because messages are not deleted immediately, adding consumers or replaying historical messages does not impose additional costs. Kafka has been benchmarked at 2 million writes per second by its developers at LinkedIn. Despite Kafka’s sub-1.0 version number, Kafka is a mature and stable product, in use in some of the largest clusters in the world.
 
 ## OpenTSDB
 
+[OpenTSDB](http://opentsdb.net/) is a time series database built on HBase. It was designed specifically for analyzing data collected from applications, mobile devices, networking equipment, and other hardware devices. The custom HBase schema used to store the time series data has been designed for fast aggregations and minimal storage requirements.
+
+By using HBase as the underlying storage layer, OpenTSDB gains the distributed and reliable characteristics of that system. Users don't interact with HBase directly; instead events are written to the system via the time series daemon (TSD), which can be scaled out as required to handle high-throughput situations. There are a number of prebuilt connectors to publish data to OpenTSDB, and clients to read data from Ruby, Python, and other languages. OpenTSDB isn't strong on creating interactive graphics, but several third-party tools fill that gap. If you are already using HBase and want a simple way to store event data, OpenTSDB might be just the thing.
 
 ## Jupyter
 
+Everybody's favorite notebook application went generic. [Jupyter](http://jupyter.org/) is “the language-agnostic parts of IPython” spun out into an independent package. Although Jupyter itself is written in Python, the system is modular. Now you can have an IPython-like interface, along with notebooks for sharing code, documentation, and data visualizations, for nearly any language you like.
+
+At least [50 language](https://github.com/ipython/ipython/wiki/IPython-kernels-for-other-languages) kernels are already supported, including LISP, R, Ruby, F#, Perl, and Scala. In fact, even IPython itself is simply a Python module for Jupyter. Communication with the language kernel is via a REPL (read, eval, print loop) protocol, similar to [nREPL](https://github.com/clojure/tools.nrepl) or [Slime](https://github.com/slime/slime). It is nice to see such a useful piece of software receiving significant nonprofit funding to further its development, such as parallel execution and multi-user notebooks. Behold, open source at its best.
 
 ## Zeppelin
 
+While still in incubation, [Apache Zeppelin](https://zeppelin.incubator.apache.org/) is nevertheless stirring the data analytics and visualization pot. The Web-based notebook enables users to ingest, discover, analyze, and visualize their data. The notebook also allows you to collaborate with others to make data-driven, interactive documents incorporating a growing number of programming languages. 
+
+This technology also boasts an integration with Spark and an interpreter concept allowing any language or data processing back end to be plugged into Zeppelin. Currently Zeppelin supports interpreters such as Scala, Python, SparkSQL, Hive, Markdown, and Shell. 
+
+Zeppelin is still immature. I wanted to put a demo up but couldn’t find an easy way to disable “shell” as an execution option (among other things). However, it already looks better visually than IPython Notebook, which is the popular incumbent in this space. If you don’t want to spring for DataBricks Cloud or need something open source and extensible, this is the most promising distributed computing notebook around -- especially if you’re a Sparky type.
