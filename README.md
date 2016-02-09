@@ -180,7 +180,7 @@ You might have heard about this new thing called Docker containers. Developers l
   - [.Net Core and ASP.Net vNext](#net-core-and-aspnet-vnext)
   - [GlusterFS](#glusterfs)
  
-#Docker Machine, Compose, and Swarm
+### Docker Machine, Compose, and Swarm
 
 Docker’s open source container technology has been adopted by the major public clouds and is being built into the next version of Windows Server. Allowing developers and operations teams to separate applications from infrastructure, Docker is a powerful data center automation tool.
 
